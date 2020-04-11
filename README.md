@@ -1,4 +1,8 @@
-## gitpert
+[![GoDoc](https://godoc.org/github.com/augmentable-dev/gitpert?status.svg)](https://godoc.org/github.com/augmentable-dev/gitpert)
+[![Go Report Card](https://goreportcard.com/badge/github.com/augmentable-dev/gitpert)](https://goreportcard.com/report/github.com/augmentable-dev/gitpert)
+[![TODOs](https://badgen.net/https/api.tickgit.com/badgen/github.com/augmentable-dev/gitpert)](https://www.tickgit.com/browse?repo=github.com/augmentable-dev/gitpert)
+
+# gitpert
 
 `gitpert` measures the "pertinence" of git authors as a time-decayed measure of LOC added and removed to a repository (or a set of files in a repository).
 It's meant to help identify who the most relevant contributors are based on commit recency, frequency and impact.
@@ -12,24 +16,19 @@ The net effect *should* be a ranked list of authors (contributors) where those w
 This could be useful for identifying who the best person to review a new code change might be, or who the best person to ask questions or seek help from might be. Scores can be done at the repository level, and also for individual files (the most pertinent author for a repository might not be the most pertinent for a directory or file within that repository).
 
 
-### Installation
-
+## Installation
 TODO
 
-### Usage
-
+## Usage
 TODO
 
-### FAQ
+## FAQ
 
-#### What about git-blame?
-
+### What about git-blame?
 `git-blame` will tell you about the last modification to lines in a file (the author and revision), and is certainly useful. This tool hopes to provide a higher level view of the net effect of authorship in a repository over time.
 
-#### Why are changes to "vendored" dependencies ignored?
-
+### Why are changes to "vendored" dependencies ignored?
 Authoring a commit that introduces a large diff because it adds or removes many dependencies (think the `vendor/` directory in golang projects), though in most contexts an important contribution, gives an outsized "impact" to that commit and author which doesn't necessarily reflect how well they "impact" the code of the project itself in that commit.
 
-#### Should LOC added be weighed the same as LOC removed?
-
+### Should LOC added be weighed the same as LOC removed?
 Maybe. This could be worth exposing as a config parameter. One could argue that a LOC added should weigh some amount more than a LOC removed.
