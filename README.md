@@ -13,7 +13,7 @@ It's meant to help identify who the most relevant contributors are based on comm
 
 The net effect *should* be a ranked list of authors (contributors) where those who have more recently and more frequently contributed "larger" commits surface to the top. An author who committed the initial code many years ago (maybe higher impact) will likely rank lower than an author who has contributed less impactfully, but much more recently (depending on the decay rate and absolute numbers, or course).
 
-This could be useful for identifying who the best person to review a new code change might be, or who the best person to ask questions or seek help from might be. Scores can be done at the repository level, and also for individual files (the most pertinent author for a repository might not be the most pertinent for a directory or file within that repository).
+This could be useful for identifying who the best person to review a new code change might be, or who the best person to ask questions or seek help from might be. Scoring can be done at the repository level, and also for individual files (the most pertinent author for a repository might not be the most pertinent for a directory or file within that repository).
 
 
 ## Installation
@@ -32,3 +32,6 @@ Authoring a commit that introduces a large diff because it adds or removes many 
 
 ### Should LOC added be weighed the same as LOC removed?
 Maybe. This could be worth exposing as a config parameter. One could argue that a LOC added should weigh some amount more than a LOC removed.
+
+### How are commits aggregated to an author?
+By email address. Authors using multiple email addresses (say, because of GitHub's `...@users.noreply.github.com`) will be tracked as distinct authors. An option to enumerate which emails should be treated as belonging to the same author should be implemented.
