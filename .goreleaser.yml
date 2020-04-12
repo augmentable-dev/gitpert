@@ -1,0 +1,37 @@
+project_name: gitpert
+before:
+  hooks:
+    - go mod tidy
+builds:
+-
+  main: ./cmd/gitpert.go
+  env:
+    - CGO_ENABLED=0
+brews:
+-
+  github:
+    owner: augmentable-dev
+    name: homebrew-tickgit
+  commit_author:
+    name: augmentable
+    email: patrick@augmentable.io
+  homepage: "https://augmentable.io/"
+  description: "gitpert measures the "pertinence" of git authors as a time-decayed measure of LOC added and removed to a repository (or a set of files in a repository)."
+
+archives:
+- replacements:
+    darwin: Darwin
+    linux: Linux
+    windows: Windows
+    386: i386
+    amd64: x86_64
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+    - '^docs:'
+    - '^test:'
