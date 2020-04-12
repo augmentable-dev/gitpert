@@ -4,7 +4,7 @@ before:
     - go mod tidy
 builds:
 -
-  main: ./cmd/gitpert.go
+  main: ./gitpert.go
   env:
     - CGO_ENABLED=0
 brews:
@@ -15,8 +15,8 @@ brews:
   commit_author:
     name: augmentable
     email: patrick@augmentable.io
-  homepage: "https://augmentable.io/"
-  description: "gitpert measures the "pertinence" of git authors as a time-decayed measure of LOC added and removed to a repository (or a set of files in a repository)."
+  homepage: "https://github.com/augmentable-dev/gitpert/"
+  description: "measure the pertinence of git authors as a time-decayed measure of LOC added and removed to a repository (or a set of files in a repository)"
 
 archives:
 - replacements:
