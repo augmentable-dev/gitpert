@@ -17,7 +17,13 @@ This could be useful for identifying who the best person to review a new code ch
 
 
 ## Installation
-TODO
+
+### Homebrew
+
+```
+brew tap augmentable-dev/gitpert
+brew install gitpert
+```
 
 ## Usage
 TODO
