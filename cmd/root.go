@@ -82,7 +82,7 @@ var rootCmd = &cobra.Command{
 		type authorAggregate struct {
 			email   string
 			name    string
-			commits []*object.Commit
+			commits int
 			impact  int
 			score   float64
 		}
@@ -92,15 +92,14 @@ var rootCmd = &cobra.Command{
 			authorEmail := commit.Author.Email
 			if _, ok := authors[authorEmail]; !ok {
 				authors[authorEmail] = &authorAggregate{
-					email:   authorEmail,
-					name:    commit.Author.Name,
-					commits: make([]*object.Commit, 0),
+					email: authorEmail,
+					name:  commit.Author.Name,
 				}
 				authorEmails = append(authorEmails, authorEmail)
 			}
 
 			agg := authors[authorEmail]
-			agg.commits = append(authors[authorEmail].commits, commit)
+			agg.commits++
 
 			fileStats, err := commit.Stats()
 			handleError(err)
@@ -133,7 +132,7 @@ var rootCmd = &cobra.Command{
 			if agg.score < 1 {
 				continue
 			}
-			fmt.Fprintf(w, "%d\t%s\t%s\t%d\t%d commits\t%d\n", rank+1, authorEmail, agg.name, int(math.Round(agg.score)), len(agg.commits), agg.impact)
+			fmt.Fprintf(w, "%d\t%s\t%s\t%d\t%d commits\t%d\n", rank+1, authorEmail, agg.name, int(math.Round(agg.score)), agg.commits, agg.impact)
 		}
 		w.Flush()
 	},
