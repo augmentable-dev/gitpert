@@ -29,7 +29,7 @@ var (
 
 func init() {
 	rootCmd.Flags().BoolVarP(&remote, "remote", "r", false, "whether or not this is a remote repository")
-	rootCmd.Flags().IntVarP(&decayDays, "drop-off", "d", 30, "drop off duration in days")
+	rootCmd.Flags().IntVarP(&decayDays, "decay-rate", "d", 30, "determines how long it takes for the impact of a commit to halve, based on how recently the commit was made")
 }
 
 var rootCmd = &cobra.Command{
@@ -127,12 +127,13 @@ var rootCmd = &cobra.Command{
 		})
 
 		w := tabwriter.NewWriter(os.Stdout, 0, 0, 3, ' ', tabwriter.TabIndent)
+		fmt.Fprintf(w, "Rank\tEmail\tName\tScore\tCommits\tImpact\n")
 		for rank, authorEmail := range authorEmails {
 			agg := authors[authorEmail]
 			if agg.score < 1 {
 				continue
 			}
-			fmt.Fprintf(w, "%d\t%s\t%s\t%d\t%d commits\t%d\t%f\n", rank+1, authorEmail, agg.name, int(math.Round(agg.score)), len(agg.commits), agg.impact, float64(agg.impact)/agg.score)
+			fmt.Fprintf(w, "%d\t%s\t%s\t%d\t%d commits\t%d\n", rank+1, authorEmail, agg.name, int(math.Round(agg.score)), len(agg.commits), agg.impact)
 		}
 		w.Flush()
 	},
