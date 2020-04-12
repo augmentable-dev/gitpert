@@ -11,7 +11,7 @@ brews:
 -
   github:
     owner: augmentable-dev
-    name: homebrew-tickgit
+    name: homebrew-gitpert
   commit_author:
     name: augmentable
     email: patrick@augmentable.io
