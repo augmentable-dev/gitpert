@@ -52,7 +52,8 @@ var rootCmd = &cobra.Command{
 		// if the remote flag is set, clone the repo (using repoPath) into memory
 		if remote {
 			r, err := git.Clone(memory.NewStorage(), nil, &git.CloneOptions{
-				URL: repoPath,
+				URL:          repoPath,
+				SingleBranch: true,
 			})
 			handleError(err)
 			repo = r
@@ -70,11 +71,13 @@ var rootCmd = &cobra.Command{
 		// TODO (patrickdevivo) at some point this entire scoring logic should be brought out into a subpackage with some tests
 		// this could also make it possibe for other projects to import the implementation.
 		decayHours := 24 * decayDays
-		// since := time.Now().Add(-(time.Duration(decayHours) * time.Hour * 10))
+
+		// this ignores any commits older than 100 half-lives,
+		since := time.Now().Add(-(time.Duration(decayHours) * time.Hour * 10))
 		commitIter, err := repo.Log(&git.LogOptions{
 			Order:    git.LogOrderCommitterTime,
 			FileName: fileName,
-			// Since:    &since,
+			Since:    &since,
 		})
 		handleError(err)
 		defer commitIter.Close()
@@ -99,7 +102,17 @@ var rootCmd = &cobra.Command{
 			}
 
 			agg := authors[authorEmail]
+			hoursAgo := time.Now().Sub(commit.Author.When).Hours()
 			agg.commits++
+
+			// TODO this is a bit hacky, we're absorbing any panics that occur
+			// in particular, it's meant to capture an index out of range error occurring
+			// under some conditions in the underlying git/diff dependency. Maybe another reason to use native git...
+			defer func() {
+				if err := recover(); err != nil {
+					agg.score += math.Exp2(-hoursAgo / float64(decayHours))
+				}
+			}()
 
 			fileStats, err := commit.Stats()
 			handleError(err)
@@ -108,6 +121,7 @@ var rootCmd = &cobra.Command{
 			var deletions int
 			for _, stat := range fileStats {
 				// ignore diffs in vendor files
+				// TODO perhaps it's worth allowing for the user to supply file path patterns be ignored?
 				if enry.IsVendor(stat.Name) {
 					continue
 				}
@@ -116,7 +130,6 @@ var rootCmd = &cobra.Command{
 			}
 			agg.impact += additions + deletions
 
-			hoursAgo := time.Now().Sub(commit.Author.When).Hours()
 			agg.score += float64(additions+deletions) * math.Exp2(-hoursAgo/float64(decayHours))
 			return nil
 		})
@@ -126,13 +139,14 @@ var rootCmd = &cobra.Command{
 		})
 
 		w := tabwriter.NewWriter(os.Stdout, 0, 0, 3, ' ', tabwriter.TabIndent)
-		fmt.Fprintf(w, "Rank\tEmail\tName\tScore\tCommits\tImpact\n")
+		fmt.Fprintf(w, "Rank\tEmail\tName\tScore\tImpact\tCommits\n")
 		for rank, authorEmail := range authorEmails {
 			agg := authors[authorEmail]
+			// ignore scores less than 0
 			if agg.score < 1 {
 				continue
 			}
-			fmt.Fprintf(w, "%d\t%s\t%s\t%d\t%d commits\t%d\n", rank+1, authorEmail, agg.name, int(math.Round(agg.score)), agg.commits, agg.impact)
+			fmt.Fprintf(w, "%d\t%s\t%s\t%d\t%d\t%d\n", rank+1, authorEmail, agg.name, int(math.Round(agg.score)), agg.impact, agg.commits)
 		}
 		w.Flush()
 	},
