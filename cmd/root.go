@@ -23,13 +23,15 @@ func handleError(err error) {
 }
 
 var (
-	remote    bool
 	decayDays int
+	full      bool
+	remote    bool
 )
 
 func init() {
-	rootCmd.Flags().BoolVarP(&remote, "remote", "r", false, "whether or not this is a remote repository")
 	rootCmd.Flags().IntVarP(&decayDays, "decay-rate", "d", 30, "determines how long it takes for the impact of a commit to halve, based on how recently the commit was made")
+	rootCmd.Flags().BoolVarP(&remote, "remote", "r", false, "whether or not this is a remote repository")
+	rootCmd.Flags().BoolVarP(&full, "full", "f", false, "include all commits when calculating scores")
 }
 
 var rootCmd = &cobra.Command{
@@ -73,7 +75,10 @@ var rootCmd = &cobra.Command{
 		decayHours := 24 * decayDays
 
 		// this ignores any commits older than 100 half-lives,
-		since := time.Now().Add(-(time.Duration(decayHours) * time.Hour * 10))
+		var since time.Time
+		if !full {
+			since = time.Now().Add(-(time.Duration(decayHours) * time.Hour * 10))
+		}
 		commitIter, err := repo.Log(&git.LogOptions{
 			Order:    git.LogOrderCommitterTime,
 			FileName: fileName,
