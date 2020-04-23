@@ -125,9 +125,9 @@ var rootCmd = &cobra.Command{
 		fmt.Fprintf(w, "Rank\tEmail\tName\tScore\tImpact\tCommits\n")
 		for rank, authorEmail := range authorEmails {
 			agg := authors[authorEmail]
-			// ignore scores less than 0
-			if agg.score < 1 {
-				continue
+			// only print the top 10
+			if rank > 9 {
+				break
 			}
 			fmt.Fprintf(w, "%d\t%s\t%s\t%d\t%d\t%d\n", rank+1, authorEmail, agg.name, int(math.Round(agg.score)), agg.impact, agg.commits)
 		}
