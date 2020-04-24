@@ -5,7 +5,7 @@ import (
 	"sort"
 
 	"github.com/augmentable-dev/gitpert/pkg/gitlog"
-	"github.com/src-d/enry"
+	"github.com/src-d/enry/v2"
 )
 
 // AuthorAggregate is a summary of an author's stats (given a git history)

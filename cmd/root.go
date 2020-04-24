@@ -9,7 +9,7 @@ import (
 	"text/tabwriter"
 
 	"github.com/augmentable-dev/gitpert/pkg/gitlog"
-	"github.com/augmentable-dev/gitpert/pkg/gitlog/score"
+	"github.com/augmentable-dev/gitpert/pkg/score"
 	"github.com/go-git/go-git/v5"
 	"github.com/spf13/cobra"
 )

@@ -120,13 +120,14 @@ github.com/spf13/jwalterweatherman v1.0.0/go.mod h1:cQK4TGJAtQXfYWX+Ddv3mKDzgVb6
 github.com/spf13/pflag v1.0.3 h1:zPAT6CGy6wXeQ7NtTnaTerfKOsV6V6F8agHXFiazDkg=
 github.com/spf13/pflag v1.0.3/go.mod h1:DYY7MBk1bdzusC3SYhjObp+wFpr4gzcvqqNjLnInEg4=
 github.com/spf13/viper v1.4.0/go.mod h1:PTJ7Z/lr49W6bUbkmS1V3by4uWynFiR9p7+dSq/yZzE=
-github.com/src-d/enry v1.7.3 h1:jG2fmEaQaURh0qqU/sn82BRzVa6d4EVHJIw6gc98bak=
-github.com/src-d/enry v1.7.3/go.mod h1:rS65Jtgb3+BhbLv9ANl7G60QK2/ioztFTRBvjx4egQ0=
+github.com/src-d/enry/v2 v2.1.0 h1:z1L8t+B8bh3mmjPkJrgOTnVRpFGmTPJsplHX9wAn6BI=
+github.com/src-d/enry/v2 v2.1.0/go.mod h1:qQeCMRwzMF3ckeGr+h0tJLdxXnq+NVZsIDMELj0t028=
 github.com/src-d/go-oniguruma v1.1.0 h1:EG+Nm5n2JqWUaCjtM0NtutPxU7ZN5Tp50GWrrV8bTww=
 github.com/src-d/go-oniguruma v1.1.0/go.mod h1:chVbff8kcVtmrhxtZ3yBVLLquXbzCS6DrxQaAK/CeqM=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/objx v0.1.1/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
+github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
 github.com/stretchr/testify v1.4.0 h1:2E4SXV/wtOkTonXsotYi4li6zVWxYlZuYNCXe9XRJyk=
 github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81PSLYec5m4=
 github.com/tmc/grpc-websocket-proxy v0.0.0-20190109142713-0ad062ec5ee5/go.mod h1:ncp9v5uamzpCO7NfCPTXjqaC+bZgJeR0sMTm6dMHP7U=
@@ -188,8 +189,6 @@ gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15/go.mod h1:Co6ibVJAznAaIkqp8
 gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f h1:BLraFXnmrev5lT+xlilqcH8XK9/i0At2xKjWk4p6zsU=
 gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
 gopkg.in/resty.v1 v1.12.0/go.mod h1:mDo4pnntr5jdWRML875a/NmxYqAlA73dVijT2AXvQQo=
-gopkg.in/src-d/enry.v1 v1.7.3 h1:2J5bIFs6G61eVd31NxCZri9iYkPbQCgfQZR+9xDvCCU=
-gopkg.in/src-d/enry.v1 v1.7.3/go.mod h1:lDDelHa5/fOO+o8klI8JOOoMszXxhqCYOgqFS2mnxQA=
 gopkg.in/toqueteos/substring.v1 v1.0.2 h1:urLqCeMm6x/eTuQa1oZerNw8N1KNOIp5hD5kGL7lFsE=
 gopkg.in/toqueteos/substring.v1 v1.0.2/go.mod h1:Eb2Z1UYehlVK8LYW2WBVR2rwbujsz3aX8XDrM1vbNew=
 gopkg.in/warnings.v0 v0.1.2 h1:wFXVbFY8DY5/xOe1ECiWdKCzZlxgshcYVNkBHstARME=
