@@ -131,6 +131,7 @@ func Exec(ctx context.Context, repoPath string, filePattern string, additionalFl
 
 	args := []string{"log"}
 
+	// TODO we should allow a way for the caller to specify additional flags (in a way that doesn't conflict with these)
 	args = append(args, "--numstat", "--format=fuller", "--no-merges", "--no-decorate", "--date=iso8601-strict", "-w")
 	args = append(args, additionalFlags...)
 	if filePattern != "" {
